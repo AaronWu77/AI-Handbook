@@ -69,27 +69,38 @@ EOF
 ### Linux（bash / zsh）
 
 ```bash
-cat > ~/.copilot/deepseek.env(或者 qwen.env) <<'EOF'
+cat > ~/.copilot/qwen.env <<'EOF'
 COPILOT_PROVIDER_TYPE=openai
-COPILOT_PROVIDER_BASE_URL=https://api.deepseek.com/v1 (https://dashscope.aliyuncs.com/compatible-mode/v1)
-COPILOT_PROVIDER_API_KEY=你的DeepSeekKey/你的QwenKey
-COPILOT_MODEL=deepseek-v4-flash(pro)/qwen3.6-plus
-COPILOT_PROVIDER_MAX_PROMPT_TOKENS=256000
-COPILOT_PROVIDER_MAX_OUTPUT_TOKENS=4096
+COPILOT_PROVIDER_BASE_URL=https://dashscope.aliyuncs.com/compatible-mode/v1
+COPILOT_PROVIDER_API_KEY=你的QwenKey
+COPILOT_MODEL=qwen3.6-plus
+COPILOT_PROVIDER_MAX_PROMPT_TOKENS=840000
+COPILOT_PROVIDER_MAX_OUTPUT_TOKENS=128000
+EOF
+```
+
+```bash
+cat > ~/.copilot/deepseek.env <<'EOF'
+COPILOT_PROVIDER_TYPE=anthropic
+COPILOT_PROVIDER_BASE_URL=https://api.deepseek.com/anthropic
+COPILOT_PROVIDER_API_KEY=你的DeepSeekKey
+COPILOT_MODEL=deepseek-v4-pro
+COPILOT_PROVIDER_MAX_PROMPT_TOKENS=840000
+COPILOT_PROVIDER_MAX_OUTPUT_TOKENS=128000
 EOF
 ```
 
 ### 说明
 
-- `COPILOT_PROVIDER_TYPE=openai`：因为 DeepSeek/Qwen 使用 OpenAI-compatible 接口
-- `COPILOT_PROVIDER_BASE_URL`：DeepSeek/Qwen 接口地址
-- `COPILOT_PROVIDER_API_KEY`：你的 DeepSeek/Qwen Key
+- `COPILOT_PROVIDER_TYPE=openai`：Qwen 使用 OpenAI-compatible 接口
+- `COPILOT_PROVIDER_TYPE=anthropic`：DeepSeek 使用 Anthropic 接口（在deepseek-v4之后，openai的结构会发生400错误，所以需要使用 Anthropic 接口）
+- `COPILOT_PROVIDER_BASE_URL`：DeepSeek 和 Qwen 的接口地址
+- `COPILOT_PROVIDER_API_KEY`：你的 DeepSeek 或 Qwen Key
 - `COPILOT_MODEL=deepseek-v4-flash(pro)/qwen3.6-plus`：模型选择
-- `COPILOT_PROVIDER_MAX_PROMPT_TOKENS=256000`：上下文 256K
-- `COPILOT_PROVIDER_MAX_OUTPUT_TOKENS=4096`：输出最大 4K
-- `COPILOT_PROVIDER_REQUEST_BODY_PARAMS={"thinking":{"type":"enabled"}}`: 从deepseek-v4开始必须要给出thinking模式，可以在脚本中添加如下内容
+- `COPILOT_PROVIDER_MAX_PROMPT_TOKENS=256000`：上下文最大长
+- `COPILOT_PROVIDER_MAX_OUTPUT_TOKENS=4096`：输出最大长度
 
-> 如果 Copilot 提示 `Model ... is not in the built-in catalog`，通常不是错误，只是 Copilot 不认识这个模型名，不能自动推断 token 上限；手动配置即可。
+> 如果 Copilot 提示 `Model ... is not in the built-in catalog`，通常不是错误，只是 Copilot 不认识这个模型名，无法自动推断 token 上限；手动配置即可。
 
 ---
 
