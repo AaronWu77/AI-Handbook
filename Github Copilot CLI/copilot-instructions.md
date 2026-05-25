@@ -1,6 +1,4 @@
-# Copilot Instructions Template
-
-这个模板用于新仓库初始化时，生成 `.github/copilot-instructions.md` 的精简版本（忽略本文档的更新日志）。
+# Copilot Instructions
 
 ## 使用目标
 
